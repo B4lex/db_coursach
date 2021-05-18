@@ -10,9 +10,9 @@ class Database:
             connection_factory=DictConnection
         )
 
-    def __new__(cls):
+    def __new__(cls, *args, **kwargs):
         if not hasattr(cls.__instance, '__instance'):
-            cls.__instance = super().__new__(cls)
+            cls.__instance = super().__new__(cls, *args, **kwargs)
         return cls.__instance
 
     def get_connection(self):
