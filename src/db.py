@@ -1,30 +1,30 @@
 from psycopg2 import connect
-from psycopg2.extras import DictConnection 
+from psycopg2.extras import RealDictConnection
 
 
 class Database:
 
-    def __init__(self, username, password, db_name, host='localhost', port=5432):
+    def __init__(self, username, password, db_name, host='localhost', port=5432, schema_file='db_schema.sql'):
         self.__connection = connect(
-            f'db_name={db_name} user={username} password={password} host={host} port={port}',
-            connection_factory=DictConnection
+            f'dbname={db_name} user={username} password={password} host={host} port={port}',
+            connection_factory=RealDictConnection
         )
+        self.schema_file = schema_file
 
     def __new__(cls, *args, **kwargs):
-        if not hasattr(cls.__instance, '__instance'):
-            cls.__instance = super().__new__(cls, *args, **kwargs)
+        if not hasattr(cls, '__instance'):
+            cls.__instance = super().__new__(cls)
         return cls.__instance
+
+    def init_tables(self):
+        with open(self.schema_file, 'rt') as f:
+            connection = self.get_connection()
+            with connection.cursor() as curr:
+                curr.execute(f.read())
+                connection.commit()
 
     def get_connection(self):
         return self.__connection
 
-    def select_all(self, fields=None):
-        with self.__connection.cursor() as cursor:
-            cursor.execute('SELECT {} FROM books'.format(', '.join(fields) if fields else '*'))
-            return cursor.fetchall()
- 
     def __del__(self):
         self.__connection.close()
-
-
-database = Database()

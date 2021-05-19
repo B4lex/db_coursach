@@ -1,14 +1,9 @@
-from flask import Flask, Blueprint
+from flask import Flask
+from views import bp
 
 
 app = Flask(__name__)
-
-api_bp = Blueprint('api', __name__, url_prefix='/api')
-
-
-@api_bp.route("/")
-def root_page():
-    return "<h1></h1>"
+app.register_blueprint(bp)
 
 
 if __name__ == '__main__':

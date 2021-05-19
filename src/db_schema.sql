@@ -21,6 +21,14 @@ CREATE TABLE countries (
     name VARCHAR(32) NOT NULL
 );
 
+CREATE TABLE authors (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(32) NOT NULL,
+    last_name VARCHAR(32) NOT NULL,
+    birth_date DATE,
+    country_id INT REFERENCES countries ON DELETE SET NULL
+);
+
 CREATE TABLE books (
     id SERIAL PRIMARY KEY,
     title VARCHAR(64) NOT NULL,
@@ -32,18 +40,10 @@ CREATE TABLE books (
     age_restrictions VARCHAR(8)
 );
 
-CREATE TABLE authors (
-    id SERIAL PRIMARY KEY,
-    first_name VARCHAR(32) NOT NULL,
-    last_name VARCHAR(32) NOT NULL,
-    birth_date DATE,
-    country_id INT REFERENCES countries ON DELETE SET NULL
-);
-
 CREATE TABLE persons (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(32) NOT NULL,
-    last_name VARCHAR(32) NOT NULL
+    last_name VARCHAR(32) NOT NULL,
     age INT
 );
 
