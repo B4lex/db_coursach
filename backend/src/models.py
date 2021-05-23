@@ -69,7 +69,7 @@ class GenericModel:
 
 books_manager = GenericModel(
     table_name='books',
-    fields=['title', 'author_id', 'genre_id', 'stylistics_id',
+    fields=['title', 'description', 'author_id', 'genre_id', 'stylistics_id',
             'pages_count', 'release_date', 'age_restrictions'],
     fk_related_fields={
         'authors': 'author_id',

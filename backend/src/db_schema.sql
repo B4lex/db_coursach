@@ -32,6 +32,7 @@ CREATE TABLE authors (
 CREATE TABLE books (
     id SERIAL PRIMARY KEY,
     title VARCHAR(64) NOT NULL,
+    description TEXT,
     author_id INT NOT NULL REFERENCES authors ON DELETE CASCADE,
     genre_id INT REFERENCES genres ON DELETE SET NULL,
     stylistics_id INT REFERENCES stylistics ON DELETE SET NULL,
