@@ -19,12 +19,11 @@ def get_api_view(manager):
     def generic_api_view():
         if request.method == 'GET':
             entity_id = request.args.get('id')
-
             data = manager.select(
                 entity_id=entity_id,
             )
 
-            if data:
+            if data or not entity_id:
                 response = jsonify(data)
             else:
                 response = get_404_response()
@@ -73,3 +72,9 @@ bp.add_url_rule(
     '/persons', 'persons', view_func=get_api_view(persons_manager),
     methods=['GET', 'POST', 'DELETE', 'PATCH']
 )
+
+
+# NVM about the following code)
+@bp.route('/readers/books', methods=[''])
+def reader_books():
+    pass

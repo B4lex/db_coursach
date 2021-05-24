@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <Books class="d-flex justify-center flex-wrap"/>
-    <AddBookForm class="mt-1"/>
+    <AddBook class="mt-1"/>
   </v-container>
 </template>
 
 <script>
 import Books from "../components/Books.vue";
-import AddBookForm from "../components/AddBookForm.vue"
+import AddBook from "../components/AddBook.vue"
 
 export default {
   data: () => ({
@@ -15,7 +15,7 @@ export default {
   }),
   components: {
     Books,
-    AddBookForm
+    AddBook
   },
 };
 </script>
